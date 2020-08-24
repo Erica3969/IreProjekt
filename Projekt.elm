@@ -191,7 +191,7 @@ map =
 sym : Int ->  String
 sym col = 
     case col of 
-        1 -> "⚪" 
+        1 -> "⚪" -- "🏻"
         2 -> "🟡"
         3 -> "🟠"
         4 -> "🔴"
@@ -250,6 +250,9 @@ drawPlot point =
                 , stop [ TypedSvg.Attributes.offset "100%"] []
                 ]
             ]
+            --, circle [ cx (w/2), cy (40), r 5 ] []
+            --, circle [ cx (664), cy (155), r 5 ] []
+            --, circle [ transform[Rotate 72 (w/2) (h/2)], cx (w/2), cy (40), r 5 ] []
             , polyline
                 [ stroke <| Paint <| Color.rgba 0 0 0 1
                 , strokeWidth <| Px 0.5
@@ -340,6 +343,10 @@ scatterplot model char =
             .point text { display: none; }
             .point:hover text { display: inline; }
           """ ]
+
+        -- .point circle { stroke: rgba(0, 0, 0,0.4);  }
+        -- fill: rgba(224, 242, 219,0.3);
+        -- .point:hover circle { stroke: rgba(0, 0, 0,1.0); fill: rgb(118, 214, 78); }
         , TypedSvg.rect
             [ TypedSvg.Attributes.x1 <| TypedSvg.Types.Px 1
             , TypedSvg.Attributes.y1 <| TypedSvg.Types.Px 1
@@ -552,48 +559,47 @@ type alias Wine =
 
 wines : List Wine
 wines =
-    [ Wine "sparkling wine" "pale yellow" 1 12.5 3 1 5 1 244 242 219 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "vinho verde" "pale yellow" 2 11 1 1 5 3 244 242 219 (Maps.Geo.latLng 39.557 -7.8536)
+    [ Wine "sparkling wine" "almost clear, straw" 1 12.5 3 1 5 1 244 242 219 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "vinho verde" "pale straw" 2 11 1 1 5 3 244 242 219 (Maps.Geo.latLng 39.557 -7.8536)
     , Wine "muscadet" "yellow" 1 12 1 1 5 3 245 243 176 (Maps.Geo.latLng 46.7111 1.7191)
     , Wine "riesling" "yellow" 3 8 1 1 5 2.5 245 243 176 (Maps.Geo.latLng 51.1642 10.4541)
-    , Wine "sauvignon blanc" "pale yellow" 2 14 2 1 5 3 191 209 117 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "verdejo" "pale yellow" 2 13 2 1 4 3 191 209 117 (Maps.Geo.latLng 40.416775 -3.703790)
-    , Wine "Gruener Veltliner" "pale yellow" 2 11.5 2 1 5 10 191 209 117 (Maps.Geo.latLng 47.6964719 13.3457347)
-    , Wine "albarino" "yellow" 2 13.5 1 1 5 5 215 219 157 (Maps.Geo.latLng 40.416775 -3.703790)
-    , Wine "pinot gris" "yellow" 2 14.5 1 1 4 5 215 219 157 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "semillon" "yellow" 2 14 5 1 3 8 215 219 157 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "garganega" "yellow" 2 14 2 1 4 8 215 219 157 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "sauvignon blanc" "green yellow" 2 14 2 1 5 3 191 209 117 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "verdejo" "green yellow" 2 13 2 1 4 3 191 209 117 (Maps.Geo.latLng 40.416775 -3.703790)
+    , Wine "Gruener Veltliner" "green yellow" 2 11.5 2 1 5 10 191 209 117 (Maps.Geo.latLng 47.6964719 13.3457347)
+    , Wine "albarino" "platinum yellow" 2 13.5 1 1 5 5 215 219 157 (Maps.Geo.latLng 40.416775 -3.703790)
+    , Wine "pinot gris" "platinum yellow" 2 14.5 1 1 4 5 215 219 157 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "semillon" "platinum yellow" 2 14 5 1 3 8 215 219 157 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "garganega" "platinum yellow" 2 14 2 1 4 8 215 219 157 (Maps.Geo.latLng 41.2925 12.5736)
     , Wine "Chenin blanc" "pale yellow" 2 14.5 1 1 5 8 225 222 128 (Maps.Geo.latLng -26.195246 28.034088)
     , Wine "moscato" "pale yellow" 5 9 1 1 3 1 225 222 128 (Maps.Geo.latLng 41.2925 12.5736)
     , Wine "pinot blanc" "pale yellow" 2 15 1 1 3 2 225 222 128 (Maps.Geo.latLng 51.1642 10.4541)
     , Wine "gewuerztraminer" "pale yellow" 3 14.5 3 1 1 3 225 222 128 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "chardonnay" "gold" 2 14.5 4 1 3 6 219 193 78 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "roussanne" "gold" 2 15 3 1 3 8 219 193 78 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "viognier" "gold" 2 14.5 3 1 2 5 219 193 78 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "noble rot wines riesling" "gold" 3 13 3 4 5 3 222 163 0 (Maps.Geo.latLng 51.1642 10.4541)
-    , Wine "rioja" "gold" 2 13.5 4 4 4 10 222 163 0 (Maps.Geo.latLng 40.416775 -3.703790)
-    , Wine "white port" "yellow" 5 20 5 1 4 10 250 207 102 (Maps.Geo.latLng 39.557 -7.8536)
-    , Wine "tokaji" "yellow" 5 14 5 1 5 15 244 171 59 (Maps.Geo.latLng 47.497913 19.040236)
+    , Wine "chardonnay" "pale gold" 2 14.5 4 1 3 6 219 193 78 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "roussanne" "pale gold" 2 15 3 1 3 8 219 193 78 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "viognier" "pale gold" 2 14.5 3 1 2 5 219 193 78 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "noble rot wines riesling" "deepgold" 3 13 3 4 5 3 222 163 0 (Maps.Geo.latLng 51.1642 10.4541)
+    , Wine "rioja" "deepgold" 2 13.5 4 4 4 10 222 163 0 (Maps.Geo.latLng 40.416775 -3.703790)
+    , Wine "white port" "pale amber" 5 20 5 1 4 10 250 207 102 (Maps.Geo.latLng 39.557 -7.8536)
+    , Wine "tokaji" "medium amber" 5 14 5 1 5 15 244 171 59 (Maps.Geo.latLng 47.497913 19.040236)
     , Wine "rose of pinot noir" "pale salmon" 2 12.9 3 2 4 7.5 222 164 107 (Maps.Geo.latLng 46.7111 1.7191)
     , Wine "carignan" "pale salmon" 2 15 3 3 4 8 222 164 107 (Maps.Geo.latLng 46.7111 1.7191)
     , Wine "zinfandel" "pale salmon" 2 13.5 4 4 2 5 222 164 107 (Maps.Geo.latLng 36.778259 -119.417931)
-    , Wine "rose of merlot" "ruby" 1 14 4 3 3 11 205 41 94 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "grenache" "ruby" 2 15 4 3 3 7.5 205 41 94 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "sangiovese" "ruby" 1 14.5 4 4 4 15 205 41 94 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "rose of cabernet" "ruby" 2 11 5 4 3 7.5 204 61 60 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "tempranillo" "ruby" 2 12.5 4 4 4 8 204 61 60 (Maps.Geo.latLng 40.416775 -3.703790)
+    , Wine "rose of merlot" "deep pink" 1 14 4 3 3 11 205 41 94 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "grenache" "deep pink" 2 15 4 3 3 7.5 205 41 94 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "sangiovese" "deep pink" 1 14.5 4 4 4 15 205 41 94 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "rose of cabernet" "deep salmon" 2 11 5 4 3 7.5 204 61 60 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "tempranillo" "deep salmon" 2 12.5 4 4 4 8 204 61 60 (Maps.Geo.latLng 40.416775 -3.703790)
     , Wine "pinot noir" "pale ruby" 2 13.5 3 2 4 7.5 172 18 46 (Maps.Geo.latLng 46.7111 1.7191)
     , Wine "nebbiolo" "pale ruby" 1 14 4 4 4 8 172 18 46 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "merlot" "ruby" 1 14.5 4 4 4 11 72 0 22 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "cabernet franc" "ruby" 2 11 3 4 4 9 72 0 22 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "barbera" "ruby" 1 15.5 4 2 5 10 72 0 22 (Maps.Geo.latLng 41.2925 12.5736)
-    , Wine "syrah" "ruby" 2 15.5 4 4 3 7.5 55 13 26 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "cabernet sauvignon" "ruby" 2 13.5 5 4 3 12.5 55 13 26 (Maps.Geo.latLng 46.7111 1.7191)
-    , Wine "malbec" "ruby" 2 13.5 5 3 2 7.5 55 13 26 (Maps.Geo.latLng -38.4192641 -63.5989206)
-    , Wine "mourvedre" "ruby" 2 14 5 5 3 10 55 13 26 (Maps.Geo.latLng 40.416775 -3.703790)
-    , Wine "petite sirah" "ruby" 2 20 5 5 3 15 55 13 26 (Maps.Geo.latLng -35.473469 149.012375)
+    , Wine "merlot" "deep violet" 1 14.5 4 4 4 11 72 0 22 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "cabernet franc" "deep violet" 2 11 3 4 4 9 72 0 22 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "barbera" "deep violet" 1 15.5 4 2 5 10 72 0 22 (Maps.Geo.latLng 41.2925 12.5736)
+    , Wine "syrah" "deep purple" 2 15.5 4 4 3 7.5 55 13 26 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "cabernet sauvignon" "deep purple" 2 13.5 5 4 3 12.5 55 13 26 (Maps.Geo.latLng 46.7111 1.7191)
+    , Wine "malbec" "deep purple" 2 13.5 5 3 2 7.5 55 13 26 (Maps.Geo.latLng -38.4192641 -63.5989206)
+    , Wine "mourvedre" "deep purple" 2 14 6 5 3 10 55 13 26 (Maps.Geo.latLng 40.416775 -3.703790)
+    , Wine "petite sirah" "deep purple" 2 20 5 5 3 15 55 13 26 (Maps.Geo.latLng -35.473469 149.012375)
     , Wine "port" "tawny" 5 19 5 5 4 20 153 55 3 (Maps.Geo.latLng 39.557 -7.8536)
     , Wine "tawny port" "tawny" 5 20 5 5 4 25 153 55 3 (Maps.Geo.latLng 39.557 -7.8536)
-
     ]
  
